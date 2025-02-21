@@ -15,7 +15,7 @@ const ProductHeaderComponent = ({ product }: ProductHeaderProps) => {
     const router = useRouter();
 
     return (
-        <div className="relative h-[300px] w-full">
+        <div className="relative min-h-[300px] w-full">
             <Button size="icon"
                 onClick={() => router.back()}
                 className="absolute left-4 top-4 z-50 rounded-full"
