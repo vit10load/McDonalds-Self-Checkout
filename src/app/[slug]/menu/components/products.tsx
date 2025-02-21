@@ -13,7 +13,7 @@ const ProductsComponent = ({ products }: ProductProps) => {
         <div className="space-y-3 px-5 py-5">
             {products.map((product) =>
 
-                <Link key={product.id} href="/" className="flex items-center justify-between gap-10 py-3 border-b">
+                <Link key={product.id} href={`menu/${product.id}`} className="flex items-center justify-between gap-10 py-3 border-b">
                     {/* Div da esquerda */}
                     <div>
                         <h3 className="text-sm font-medium">
