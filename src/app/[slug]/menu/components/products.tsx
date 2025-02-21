@@ -10,7 +10,7 @@ interface ProductProps {
 
 const ProductsComponent = ({ products }: ProductProps) => {
     return (
-        <div className="space-y-3 px-5 py-5">
+        <div className="space-y-3 px-5 py-5 overflow-y-scroll" style={{ height: '385px' }}>
             {products.map((product) =>
 
                 <Link key={product.id} href={`menu/${product.id}`} className="flex items-center justify-between gap-10 py-3 border-b">
