@@ -55,7 +55,6 @@ const CategoriesComponent = ({ restaurant }: RestaurantProps) => {
             </div>
 
             <ScrollArea className="w-full">
-
                 <div className="flex w-max space-x-4 p-4 pt-0">
                     {restaurant.menuCategorys.map(category =>
                         <Button onClick={() => handleCategoryClick(category)} key={category.id}
@@ -66,9 +65,7 @@ const CategoriesComponent = ({ restaurant }: RestaurantProps) => {
                         </Button>
                     )}
                 </div>
-
                 <ScrollBar orientation="horizontal"></ScrollBar>
-
             </ScrollArea>
 
             <h3 className="px-5 font-semibold pt-8">{selectedCategory.name} </h3>

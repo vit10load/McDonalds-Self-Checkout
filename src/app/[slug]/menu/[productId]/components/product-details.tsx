@@ -43,8 +43,6 @@ const ProductDetailsComponent = ({ product }: ProductDetailsComponentProps) => {
     }
 
     const handleAddToCart = () => {
-        console.log('dsfdfdf');
-
         addProducts({
             id: product.id,
             name: product.name,
@@ -52,7 +50,6 @@ const ProductDetailsComponent = ({ product }: ProductDetailsComponentProps) => {
             imageUrl: product.imageUrl,
             quantity: quantity
         });
-
         toggleCart();
     }
 
@@ -119,7 +116,6 @@ const ProductDetailsComponent = ({ product }: ProductDetailsComponentProps) => {
                         </div>
 
                     </ScrollArea>
-
 
                 </div>
 
