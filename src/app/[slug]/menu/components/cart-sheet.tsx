@@ -33,7 +33,12 @@ const CartSheetComponent = () => {
                         <CardContent className="p-5">
                             <div className="flex justify-between">
                                 <p className="text-sm text-muted-foreground">Total</p>
-                                <p className="text-sm font-semibold">{totalPedido}</p>
+                                <p className="text-sm font-semibold">
+                                    {Intl.NumberFormat("pr-BR", {
+                                        style: "currency",
+                                        currency: "BRL"
+                                    }).format(totalPedido)}
+                                </p>
                             </div>
                         </CardContent>
                     </Card>

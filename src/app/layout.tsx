@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "./[slug]/menu/context/cart";
+import { Toaster } from "@/components/ui/sonner";
 
 const poppins = Poppins({
   display: "swap",
@@ -25,6 +26,7 @@ export default function RootLayout({
         className={`${poppins.className} max-w-screen w-full overflow-hidden`}
       >
         <CartProvider>{children}</CartProvider>
+        <Toaster></Toaster>
       </body>
     </html>
   );

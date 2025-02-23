@@ -24,7 +24,12 @@ const CartItemsComponent = ({ product }: CartProduct) => {
 
                 <div className="space-y-1">
                     <p className="text-xs max-w-[90%] truncate text-ellipsis">{product.name}</p>
-                    <p className="text-sm font-semibold">{product.price}</p>
+                    <p className="text-sm font-semibold">
+                        {Intl.NumberFormat("pr-BR", {
+                            style: "currency",
+                            currency: "BRL"
+                        }).format(product.price)}
+                    </p>
                     <div className="flex items-center gap-1">
                         <Button variant="outline" className="h-7 w-7 rounded-lg" onClick={() => decreaseProductQuantity(product.id)}>
                             <ChevronLeftIcon size={16} />

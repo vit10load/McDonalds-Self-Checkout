@@ -1,14 +1,22 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { useForm } from "react-hook-form";
 
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ConsumptionMethod } from "@prisma/client";
+import Error from "next/error";
+import { useParams, useSearchParams } from "next/navigation";
+import { useContext, useTransition } from "react";
 import { PatternFormat } from "react-number-format";
+import { z } from 'zod';
+import { createOrder } from "../actions/create-order";
+import { CartContext } from "../context/cart";
+import { toast } from "sonner";
+import { Loader2Icon } from "lucide-react";
 
 
 const formSchema = z.object({
@@ -29,6 +37,16 @@ interface FinishOrderDialogProps {
 
 const FinishOrderComponent = ({ open, onOpenChange }: FinishOrderDialogProps) => {
 
+    const { slug } = useParams();
+
+    const { products } = useContext(CartContext);
+
+    const searchParams = useSearchParams();
+
+    const consumptionMethod = searchParams.get("consumptionMethod") as ConsumptionMethod;
+
+    const [isPending, startTransition] = useTransition();
+
     const form = useForm<FormSchema>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,8 +56,32 @@ const FinishOrderComponent = ({ open, onOpenChange }: FinishOrderDialogProps) =>
         shouldUnregister: true
     });
 
-    const onSubmit = (data: FormSchema) => {
-        console.log(data);
+    const onSubmit = async (data: FormSchema) => {
+
+        try {
+
+            startTransition(async () => {
+                await createOrder({
+                    consumptionMethod,
+                    customerCpf: data.cpf,
+                    customerName: data.name,
+                    products,
+                    slug
+                });
+
+                onOpenChange(false);
+
+                toast.success('Pedido finalizado com sucesso.');
+
+            });
+
+
+        } catch (error) {
+            throw new Error({
+                title: 'Nao pode criar um pedido',
+                statusCode: 500
+            })
+        }
     }
 
     return (
@@ -85,7 +127,10 @@ const FinishOrderComponent = ({ open, onOpenChange }: FinishOrderDialogProps) =>
                                 )}
                             />
                             <DrawerFooter>
-                                <Button type="submit" variant="destructive" className="rounded-full w-full">Finalizar</Button>
+                                <Button disabled={isPending} type="submit" variant="destructive" className="rounded-full w-full">
+                                    {isPending && <Loader2Icon className="animate-spin"></Loader2Icon>}
+                                    Finalizar
+                                </Button>
                                 <DrawerClose asChild>
                                     <Button variant="outline" className="rounded-full w-full">Cancelar</Button>
                                 </DrawerClose>
