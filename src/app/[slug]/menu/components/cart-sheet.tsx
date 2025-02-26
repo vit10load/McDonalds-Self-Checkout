@@ -1,12 +1,11 @@
 'use client';
 
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useContext, useState } from "react";
 import { CartContext } from "../context/cart";
 import CartItemsComponent from "./cart-items-component";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import FinishOrderComponent from "./finish-order";
 
 
@@ -19,7 +18,7 @@ const CartSheetComponent = () => {
     return (
 
         <Sheet open={isOpen} onOpenChange={toggleCart}>
-            <SheetContent className="w-[80%]">
+            <SheetContent className="w-[90%]">
                 <SheetHeader>
                     <SheetTitle>Sacola</SheetTitle>
                 </SheetHeader>

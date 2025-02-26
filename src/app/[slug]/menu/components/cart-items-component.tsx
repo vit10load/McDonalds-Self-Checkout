@@ -17,8 +17,8 @@ const CartItemsComponent = ({ product }: CartProduct) => {
     return (
         <div className="flex items-center justify-between">
 
-            <div className="flex items-center gap-3">
-                <div className="relative h-20 w-20 rounded-xl bg-gray-100">
+            <div className="flex items-center gap-4 justify-between">
+                <div className="relative h-20 w-20 rounded-xl bg-gray-100 my-2">
                     <Image src={product.imageUrl} alt={product.name} fill />
                 </div>
 
@@ -30,18 +30,18 @@ const CartItemsComponent = ({ product }: CartProduct) => {
                             currency: "BRL"
                         }).format(product.price)}
                     </p>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2">
                         <Button variant="outline" className="h-7 w-7 rounded-lg" onClick={() => decreaseProductQuantity(product.id)}>
                             <ChevronLeftIcon size={16} />
                         </Button>
-                        <p className="w-8 text-xs">{product.quantity}</p>
+                        <p className="w-8 text-xs text-center">{product.quantity}</p>
                         <Button variant="destructive" className="h-7 w-7 rounded-lg" onClick={() => increaseProductQuantity(product.id)}>
                             <ChevronRightIcon size={16} />
                         </Button>
                     </div>
                 </div>
 
-                <Button size="icon" variant="outline" onClick={() => removeProduct(product.id)}>
+                <Button className="absolute float-right right-10" size="icon" variant="outline" onClick={() => removeProduct(product.id)}>
                     <TrashIcon></TrashIcon>
                 </Button>
 

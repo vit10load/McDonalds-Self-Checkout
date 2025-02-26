@@ -41,10 +41,12 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground h-full;
+    @apply bg-background text-foreground h-full w-full;
   }
 
   html {
     @apply h-full;
+    @apply w-full;
+    @apply overflow-hidden;
   }
 }

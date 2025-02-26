@@ -32,7 +32,7 @@ export const createOrder = async (input: CreateOrderInput) => {
         }
     });
 
-    const object = input.products.map(product => {
+    const productObjects = input.products.map(product => {
         return {
             productId: product.id,
             quantity: product.quantity,
@@ -48,10 +48,10 @@ export const createOrder = async (input: CreateOrderInput) => {
             customerCpf: input.customerCpf.replace(/\D/g, ""),
             orderProducts: {
                 createMany: {
-                    data: object
+                    data: productObjects
                 }
             },
-            total: object.reduce((acc, product) => acc + product.price * product.quantity, 0),
+            total: productObjects.reduce((acc, product) => acc + product.price * product.quantity, 0),
             consumptionMethod: input.consumptionMethod,
             restaurantId: restaurant.id
         }

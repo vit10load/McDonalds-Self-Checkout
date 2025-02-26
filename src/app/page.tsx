@@ -1,5 +1,10 @@
-const HomePage  = () => {
-  return ( <h1>Hello World</h1> );
+import { redirect } from "next/navigation";
+
+const IndexPage = () => {
+
+  redirect('/fsw-donalds');
+
+  return (<></>);
 }
- 
-export default HomePage;
+
+export default IndexPage;

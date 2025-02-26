@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 import CartSheetComponent from "../../components/cart-sheet";
 import { CartContext } from "../../context/cart";
-import { log } from "console";
 
 interface ProductDetailsComponentProps {
     product: Prisma.ProductGetPayload<{

@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ConsumptionMethod } from "@prisma/client";
 import Error from "next/error";
-import { useParams, useSearchParams } from "next/navigation";
+import { redirect, useParams, useSearchParams } from "next/navigation";
 import { useContext, useTransition } from "react";
 import { PatternFormat } from "react-number-format";
 import { z } from 'zod';
@@ -73,6 +73,8 @@ const FinishOrderComponent = ({ open, onOpenChange }: FinishOrderDialogProps) =>
 
                 toast.success('Pedido finalizado com sucesso.');
 
+                redirect(`orders?consumptionMethod=${consumptionMethod}`);
+
             });
 
 
@@ -80,7 +82,7 @@ const FinishOrderComponent = ({ open, onOpenChange }: FinishOrderDialogProps) =>
             throw new Error({
                 title: 'Nao pode criar um pedido',
                 statusCode: 500
-            })
+            });
         }
     }
 
