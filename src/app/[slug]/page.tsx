@@ -2,22 +2,23 @@ import { db } from "@/lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import ComsumptionMethodOption from "./components/comsumption-method-option";
+import { findRestaurantBySlug } from "./menu/actions/respository-client";
 
 interface RestaurantPageProps {
-    params: Promise<{slug:  string}>
+    params: Promise<{ slug: string }>
 }
 
-const RestaurantPage = async ({ params } : RestaurantPageProps) => {
+const RestaurantPage = async ({ params }: RestaurantPageProps) => {
 
     const { slug } = await params;
 
-    const restaurant = await db.restaurant.findUnique({where: { slug }});
+    const restaurant = await findRestaurantBySlug(slug);
 
-    if(!restaurant){
+    if (!restaurant) {
         return notFound();
     }
 
-    return (  
+    return (
 
         <div className="flex h-screen flex-col items-center justify-center px-6 pt-24">
             <div className="flex flex-col items-center gap-2">
@@ -33,25 +34,25 @@ const RestaurantPage = async ({ params } : RestaurantPageProps) => {
                 </p>
             </div>
             <div className="pt-14 grid grid-cols-2 gap-4">
-               <ComsumptionMethodOption
+                <ComsumptionMethodOption
                     slug={slug}
-                    option="DINE_IN" 
-                    imageUrl="/dine_in.png" 
-                    imageAlt="Para comer aqui" 
+                    option="DINE_IN"
+                    imageUrl="/dine_in.png"
+                    imageAlt="Para comer aqui"
                     buttonText="Para comer aqui">
 
                 </ComsumptionMethodOption>
                 <ComsumptionMethodOption
                     slug={slug}
-                    option="TAKEAWAY" 
-                    imageUrl="/takeaway.png" 
-                    imageAlt="Para levar" 
+                    option="TAKEAWAY"
+                    imageUrl="/takeaway.png"
+                    imageAlt="Para levar"
                     buttonText="Para levar">
-                    
+
                 </ComsumptionMethodOption>
             </div>
         </div>
     );
 }
- 
+
 export default RestaurantPage;

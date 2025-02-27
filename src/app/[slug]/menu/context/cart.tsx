@@ -2,21 +2,8 @@
 
 import { Product } from "@prisma/client";
 import { createContext, ReactNode, useState } from "react";
-
-export interface CartProduct extends Pick<Product, 'name' | 'price' | 'id' | 'imageUrl'> {
-    quantity: number;
-}
-
-export interface IcartContext {
-    isOpen: boolean;
-    products: CartProduct[];
-    totalPedido: number;
-    toggleCart: () => void;
-    addProducts: (product: CartProduct) => void;
-    decreaseProductQuantity: (productId: string) => void;
-    increaseProductQuantity: (productId: string) => void;
-    removeProduct: (productId: string) => void;
-}
+import IcartContext from "../actions/interfaces/cart-context";
+import CartProduct from "../actions/interfaces/cart-product";
 
 export const CartContext = createContext<IcartContext>({
     isOpen: false,
